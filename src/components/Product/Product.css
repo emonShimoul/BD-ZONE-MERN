@@ -39,3 +39,6 @@
 .btn-cart:hover {
   background: orange;
 }
+.add-to-cart {
+  padding-right: 10px;
+}
