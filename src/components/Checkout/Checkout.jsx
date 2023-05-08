@@ -1,0 +1,9 @@
+const Checkout = () => {
+  return (
+    <div>
+      <h2>Checkout your Order!!</h2>
+    </div>
+  );
+};
+
+export default Checkout;
