@@ -14,7 +14,6 @@ const Header = () => {
       .catch((error) => console.log(error.message));
   };
 
-  console.log(user);
   return (
     <nav className="header">
       <img src={logo} alt="" />
