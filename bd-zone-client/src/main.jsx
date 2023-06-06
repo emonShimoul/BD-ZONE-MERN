@@ -8,7 +8,7 @@ import Home from "./components/Layout/Home";
 import Orders from "./components/Orders/Orders";
 import Inventory from "./components/Inventory/Inventory";
 import Login from "./components/Login/Login";
-import cartProductsLoader from "./loaders/cartProductsLOader";
+import cartProductsLoader from "./loaders/cartProductsLoader";
 import Checkout from "./components/Checkout/Checkout";
 import SignUp from "./components/SignUp/SignUp";
 import AuthProvider from "./components/providers/AuthProvider";
@@ -22,6 +22,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Shop />,
+        loader: () => fetch("http://localhost:5000/totalProducts"),
       },
       {
         path: "orders",
