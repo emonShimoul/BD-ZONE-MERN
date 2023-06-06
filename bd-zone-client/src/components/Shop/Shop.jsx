@@ -11,10 +11,11 @@ import {
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [cart, setCart] = useState([]);
 
   const { totalProducts } = useLoaderData();
-  const itemsPerPage = 10; // TODO: make it dynamic
   const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
   const pageNumbers = [...Array(totalPages).keys()];
@@ -68,6 +69,12 @@ const Shop = () => {
     deleteShoppingCart();
   };
 
+  const options = [5, 10, 15];
+  const handleSelectChange = (event) => {
+    setItemsPerPage(parseInt(event.target.value));
+    setCurrentPage(0);
+  };
+
   return (
     <>
       <div className="shop-container">
@@ -91,9 +98,26 @@ const Shop = () => {
 
       {/* pagination */}
       <div className="pagination">
+        <p>
+          current page: {currentPage} and items per page: {itemsPerPage}
+        </p>
         {pageNumbers.map((number) => (
-          <button key={number}>{number}</button>
+          <button
+            key={number}
+            className={currentPage === number ? "selected" : ""}
+            onClick={() => setCurrentPage(number)}
+          >
+            {number}
+          </button>
         ))}
+
+        <select value={itemsPerPage} onChange={handleSelectChange}>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
     </>
   );
