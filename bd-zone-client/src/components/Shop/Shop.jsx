@@ -80,7 +80,7 @@ const Shop = () => {
     deleteShoppingCart();
   };
 
-  const options = [5, 10, 15];
+  const options = [5, 10, 15, 20];
   const handleSelectChange = (event) => {
     setItemsPerPage(parseInt(event.target.value));
     setCurrentPage(0);
