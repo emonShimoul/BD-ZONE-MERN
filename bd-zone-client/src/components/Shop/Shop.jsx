@@ -41,21 +41,35 @@ const Shop = () => {
 
   useEffect(() => {
     const storedCart = getShoppingCart();
-    const savedCart = [];
-    // step 1: get id
-    for (const id in storedCart) {
-      // step 2: get the product by using id
-      const addedProduct = products.find((product) => product._id === id);
-      // step 3: get quantity of the product
-      const quantity = storedCart[id];
-      if (addedProduct) {
-        addedProduct.quantity = quantity;
-        // add the addedProduct to the saved cart
-        savedCart.push(addedProduct);
-      }
-    }
-    setCart(savedCart);
-  }, [products]);
+    const ids = Object.keys(storedCart);
+
+    fetch("http://localhost:5000/productsByIds", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(ids),
+    })
+      .then((res) => res.json())
+      .then((cartProducts) => {
+        const savedCart = [];
+        // step 1: get id
+        for (const id in storedCart) {
+          // step 2: get the product by using id
+          const addedProduct = cartProducts.find(
+            (product) => product._id === id
+          );
+          // step 3: get quantity of the product
+          const quantity = storedCart[id];
+          if (addedProduct) {
+            addedProduct.quantity = quantity;
+            // add the addedProduct to the saved cart
+            savedCart.push(addedProduct);
+          }
+        }
+        setCart(savedCart);
+      });
+  }, []);
 
   const handleAddToCart = (product) => {
     let newCart = [];
